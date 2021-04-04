@@ -1,0 +1,111 @@
+$pc: 1260px;
+$tablet: 960px;
+$medium: 760px;
+$phone: 480px;
+$xs: 390px;
+.movie-cast-section {
+    text-align: center;
+
+    .heading {
+        padding-top: 15px;
+        margin-bottom: 15px;
+        .section-heading {
+            color: black;
+            text-align: left;
+        }
+    }
+    .cast {
+        
+        .desktop-cast-wrapper {
+            padding-bottom: 35px;
+            padding-top: 15px;
+            display: grid;
+            grid-template-columns: 33.33333333333333% 33.33333333333333% 33.33333333333333%;
+            justify-content: center;
+            align-items: center;
+            row-gap: 2rem;
+            grid-gap: 1rem;
+            .actor {
+                display: flex;
+                color: black;
+                align-items: center;
+                
+                .actor-img-wrapper {
+                    border-radius: 50%;
+                    background-position: center;
+                    background-size: 100% 100%;
+                    height: 90px;
+                    width: 90px;
+                   
+                }.actor-info-wrapper {
+                    display: flex;
+                    text-align: left;
+                    margin-left: 15px;
+                    flex-direction: column;
+                    font-weight: 900;
+                    
+                    .character {
+                        color: rgb(14,99,190);
+                        font-weight: 700;
+                        
+                    }
+                }
+            }
+        }
+
+        .mobile-cast-wrapper {
+            
+            .swiper-container {
+                padding-bottom: 25%;
+                @media (max-width: $phone) {
+                    padding-bottom: 45%;
+                }
+                
+                .swiper-wrapper {
+                   
+                    .swiper-slide {
+                       
+                        .actor {
+
+                            position: relative;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            width: 120px;
+                            .actor-img-wrapper {
+                                width: 100px;
+                                height: 150px;
+                                .act-img {
+                                    border-radius: 10px;
+                                    width: 100%;
+                                    height: 100%;
+                                }
+                            }
+                            .actor-info-wrapper {
+                                position: absolute;
+                                
+                                top: 100%;
+                                color: black;
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: flex-start;
+                                width: 120px;
+                                @media (max-width: $phone) {
+                                    width: 100px;
+                                }
+                                .actor-name {
+                                    width: 100%;
+                                }
+                                .character {
+                                    color: rgb(14,99,190);
+                                    font-weight: 900;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
