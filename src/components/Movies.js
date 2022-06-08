@@ -1,11 +1,8 @@
 import React from 'react';
 import nullmovie from '../assets/images/nullmovie.jpg';
 
-
 const Movie = ({ overview,title,vote_average,poster_path }) => {
    
-   
-
     return (
             <>
                 { poster_path === null &&

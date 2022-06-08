@@ -23,7 +23,7 @@ const Cast = ({ movieid }) => {
          }).then(res => {
             return res;
         })
-	},[])
+	},[movieid])
     
     return (
         <section className="cast">

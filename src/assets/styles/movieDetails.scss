@@ -4,12 +4,8 @@ $medium: 760px;
 $phone: 480px;
 $xs: 390px;
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 @import './cast.scss';
  
-* {
-    font-family: 'Roboto', sans-serif;
-}
 
 .header-section {
     margin-bottom: 15px;
@@ -24,7 +20,6 @@ $xs: 390px;
                 @media  (max-width: $phone) {
                     font-size: 22px;
                 }
-
               
             }
             span {
@@ -59,7 +54,6 @@ $xs: 390px;
         z-index: 99;
         width: 100%;
         backdrop-filter: blur(15px);
-        
         .hero-poster-trailer-wrapper {
             display: flex;
             padding-top: 10px;
@@ -95,7 +89,7 @@ $xs: 390px;
         .overview-genre-wrapper {
             margin-top: 15px;
             border-bottom: 2px solid #FF8C00;
-            background-color: #001f3f;
+            background-color: rgba(10, 10, 10, 0.815);
             border-top-left-radius: 15px;
             border-top-right-radius: 15px;
             display: flex;
@@ -148,7 +142,7 @@ $xs: 390px;
                 .genre {
                     font-size: 14px;
                     font-weight: 700;
-                    margin-left: 15px;
+                    margin-left: 5px;
                     @media (max-width: $xs) {
                         font-size: 10px;
                     }

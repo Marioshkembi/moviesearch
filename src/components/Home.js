@@ -3,8 +3,8 @@ import MovieGrid from './MovieGrid';
 import Loading from './UI/Loading';
 
 const Home = ( ) => {
-      const  {movies,isloading} = UseFetchMovies(process.env.REACT_APP_MAIN_API+`/discover/movie?top_rated&page=1&api_key=${process.env.REACT_APP_API_KEY}`);
-      
+      const {movies,isloading} = UseFetchMovies(process.env.REACT_APP_MAIN_API+`/discover/movie?top_rated&page=1&api_key=${process.env.REACT_APP_API_KEY}`);
+     
       return (
             isloading ? (
                   <Loading></Loading>
@@ -16,7 +16,7 @@ const Home = ( ) => {
                         </div>
                         
                   </div>
-                        <MovieGrid movies={movies.data.results}></MovieGrid>
+                        <MovieGrid movies={movies.results}></MovieGrid>
                   </>
             )
 )}

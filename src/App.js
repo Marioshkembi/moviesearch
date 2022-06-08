@@ -1,6 +1,6 @@
 
 import './fontawesome';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import $ from 'jquery';
 import Popper from 'popper.js';
@@ -14,11 +14,10 @@ import Navbar from './components/UI/Header';
 import SearchResult from './components/searchresults';
 import Categories from './components/moviesCategories';
 import  { BreakpointProvider } from 'react-socks';
+
 const dotenv = require('dotenv').config()
 
-
 function App() {
-	
 	const { search } = new URL( window.location);
     const query = new URLSearchParams(search).get('search');
     const [searchQuery, setSearchQuery] = useState(query || '');
@@ -26,46 +25,42 @@ function App() {
 
     return(
 		<BreakpointProvider>
-		<Router>
+			<Router>
 
-			<div className="App">
-				<Navbar 
-					searchQuery={searchQuery} 
-					setSearchQuery={setSearchQuery} 
-					setCategorie={setCategorie} 
-					>
-					
-				</Navbar>
-			
-				<main className="main-content">
+				<div className="App">
+					<Navbar 
+						searchQuery={searchQuery} 
+						setSearchQuery={setSearchQuery} 
+						setCategorie={setCategorie}
+						>
+						
+					</Navbar>
+				
+					<main className="main-content">
 
-					<Switch>
-					
-						<Route exact path="/">							
-							<Home ></Home>							
-						</Route>
+						<Switch>
+						
+							<Route exact path="/" component={Home}/>							
+								
+							<Route path={`/moviedetails/:type?/:id?`} component={Moviedetails} />    
+											
+							<Route path={`/searchresults`} >
+								<SearchResult moviesSearch={searchQuery}/>
+							</Route>
 
-						<Route path={`/moviedetails/:type?/:id?`} >    
-							<Moviedetails></Moviedetails>				
-						 </Route>
+							<Route path={`/moviescategories/:q?/:id?`} >
+								<Categories categorie={categorie}/>
+							</Route>
 
-						<Route path={`/searchresults`} component={SearchResult}>
-							<SearchResult moviesSearch={searchQuery}></SearchResult>
-						</Route>
+						</Switch>
 
-						<Route path={`/moviescategories/:q?/:id?`} component={Categories}>
-							<Categories categorie={categorie}></Categories>
-						</Route>
+					</main>
+						
+					<Footer></Footer>
 
-					</Switch>
+				</div>
 
-				</main>
-					
-				<Footer></Footer>
-
-			</div>
-
-		</Router>
+			</Router>
 		</BreakpointProvider>
 	)
 }

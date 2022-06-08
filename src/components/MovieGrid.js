@@ -1,17 +1,15 @@
 import Movie from "./Movies";
 import { Link } from 'react-router-dom';
-import { useState } from "react";
-
 
 const MovieGrid = ({ movies }) => {
-
+    
     return ( 
-
+        
         <div className="container">
             <section>
                 <div className="movies-wrapper">
-
-                    {movies.length >= 0 && movies.map (movie => (
+               
+                    {movies.filter(type => type.media_type !== 'person').map(movie => (
                           
                            movie.hasOwnProperty('media_type') == true? <Link to={`/moviedetails?type=${movie.media_type}/${movie.id}`} key={movie.id}>
                             <div className="movie" id={movie.id} >
@@ -37,8 +35,8 @@ const MovieGrid = ({ movies }) => {
                                 
                                 </div>
                             </Link>
-                     
-                        ))}
+                    ))}
+                    
                 </div>
             </section>
         </div>

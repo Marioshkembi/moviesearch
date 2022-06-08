@@ -1,7 +1,6 @@
 import nullmovie from '../assets/images/nullmovie.jpg';
 import React from 'react'
 import axios from 'axios';
-import UseFetchMovies from './hooks/FetchMovies';
 import { useState, useEffect } from 'react';
 import Loading from './UI/Loading'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
@@ -15,19 +14,19 @@ import '../assets/styles/movieDetails.css';
 import  { Breakpoint } from 'react-socks';
 import Cast from './moviedetails/castComponent';
 
-
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y,Thumbs]);
 
 const Moviedetails = () => {
 	
 	const { search } = new URL( window.location);
     const query = new URLSearchParams(search).get('type');
-	
+	const [isloading,setIsLoading] = useState(true);
 	const [crew,setCrew] = useState([]);
     const [posters, setPosters] = useState([]);
 	const [vidId, setVidId] = useState([]);
 	const [trailers, setTrailers] = useState([]);
-	const {movies,isloading} = UseFetchMovies(process.env.REACT_APP_MAIN_API+`/${query}?api_key=${process.env.REACT_APP_API_KEY}`);
+	const [movies,setMovies] = useState([]);
+	
 	const crews_api = process.env.REACT_APP_MAIN_API+`/${query}/credits?api_key=${process.env.REACT_APP_API_KEY}&sort_by=popularity.desc`;
 	const posters_api= process.env.REACT_APP_MAIN_API+`/${query}/images?api_key=${process.env.REACT_APP_API_KEY}&language=en`;
 	
@@ -36,7 +35,12 @@ const Moviedetails = () => {
 		.then (res => {
 			return res;
 		}).then(data => {
-			setVidId(data.data.results[0].key)
+			if (data.data.results.length !=0) {
+				setVidId(data.data.results[0].key)
+			}else {
+				throw Error('could not fetch the data for that resource');
+			}
+			
 		}).catch(err => {
 			console.log(err);
 		})
@@ -54,14 +58,17 @@ const Moviedetails = () => {
 	
 
 	useEffect (() =>{
-		axios.all([axios.get(crews_api),axios.get(posters_api)])
+		axios.all([axios.get(crews_api),axios.get(posters_api),axios.get(process.env.REACT_APP_MAIN_API+`/${query}?api_key=${process.env.REACT_APP_API_KEY}`)])
 		.then (
 			axios.spread((...responses) => {
 			const resone = responses[0];
 			const restwo = responses[1];
+			const resthree = responses[2];
 			
 			setCrew(resone.data.crew.filter(director => director.job == 'Director'))
 			setPosters(restwo.data.posters)
+			setMovies(resthree)
+			setIsLoading(false);
 		})).catch(errors => {
 			console.error(errors);
 		})
@@ -146,7 +153,8 @@ const Moviedetails = () => {
 
 							<div className="overview-genre-wrapper col-xl-12 col-md-13">
 								<div className="overview-director-wrapper ">
-									<div className="director-wrapper">
+									{crew.length !=0 &&
+										<div className="director-wrapper">
 										<div className="director">
 											{crew.length>1 && 
 												<span className="job">Directors</span>
@@ -157,6 +165,7 @@ const Moviedetails = () => {
 												))}
 											</div>
 									</div>
+									}
 										<div className="overview-wrapper">
 											
 											<p className="overview">{movies.data.overview}</p>
@@ -229,7 +238,7 @@ const Moviedetails = () => {
 							<div className="heading">
 								<h2 className="section-heading">Cast:</h2>
 							</div>
-							<Cast  movieid={query}></Cast>
+							<Cast movieid={query}></Cast>
 						</div>
 					</div>
 				</section>

@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
 .movie-cast-section {
   text-align: center;
 }
@@ -137,10 +136,6 @@
   font-weight: 900;
 }
 
-* {
-  font-family: 'Roboto', sans-serif;
-}
-
 .header-section {
   margin-bottom: 15px;
 }
@@ -250,7 +245,7 @@
 .hero .hero-wrapper .overview-genre-wrapper {
   margin-top: 15px;
   border-bottom: 2px solid #FF8C00;
-  background-color: #001f3f;
+  background-color: rgba(10, 10, 10, 0.815);
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   display: -webkit-box;
@@ -333,7 +328,7 @@
 .hero .hero-wrapper .overview-genre-wrapper .movie-genres .genre {
   font-size: 14px;
   font-weight: 700;
-  margin-left: 15px;
+  margin-left: 5px;
 }
 
 @media (max-width: 390px) {

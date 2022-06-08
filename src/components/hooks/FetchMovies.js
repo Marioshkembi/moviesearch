@@ -4,22 +4,27 @@ import axios from 'axios';
 const UseFetchMovies = (url) => {
 	const [isloading,setIsLoading] = useState(true);
     const [movies, setMovies] = useState([]);
-	
+	const [error,setError] = useState(null);
     useEffect(() => {
 		
 		axios.get(url)
-		
+			
            .then(data => {
-
-				setMovies(data)
-				setIsLoading(false);
+				// if(data.data.total_results !==0 ) {
+				    setMovies(data.data)
+				    setIsLoading(false);
+				    setError(null);
+				// }else {
+				//     throw Error('could not fetch the data for that resource');
+				// }
 				
-			 }).then(res => {
-				 if (res != undefined) {
-					return res.json();
-				 }
-                 
-           	})
+				
+			 }).catch (err => {
+				    setIsLoading(false)
+				    setError(err.message)
+				    setMovies([])
+							
+				})
 
 			
 	},[])
